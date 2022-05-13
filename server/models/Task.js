@@ -9,6 +9,9 @@ const Task = dbSequelise.define('task', {
     type: Sequelize.DATE,
     defaultValue: null
   }
+}, {
+  updatedAt: 'updated_at',
+  createdAt: 'created_at',
 });
 
 Task.sync().then(() => {

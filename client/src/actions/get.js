@@ -5,7 +5,7 @@ export const getAll = async (payload = null) => {
     try {
 
         const options = {
-            query: {
+            params: {
                 ...payload
             }
         }

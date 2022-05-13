@@ -5,7 +5,7 @@ import { Fragment, useEffect, useState } from 'react';
 import update from '../actions/update';
 import deleteOneById from '../actions/delete';
 
-const Card = ({ element: { completed_at = null, createdAt, title, id }, tasks, setTasks }) => {
+const Card = ({ element: { completed_at = null, created_at, title, id }, tasks, setTasks }) => {
 
     const [formData, setFormData] = useState(null);
     const [openEdit, setOpenEdit] = useState(false);
@@ -13,7 +13,7 @@ const Card = ({ element: { completed_at = null, createdAt, title, id }, tasks, s
     const [loadingTask, setLoadingTask] = useState(false)
 
     useEffect(() => {
-        setFormData({ createdAt, title, id, completed_at})
+        setFormData({ created_at, title, id, completed_at})
     }, [])
 
     const handleUpdate = async(type) => {
@@ -28,6 +28,7 @@ const Card = ({ element: { completed_at = null, createdAt, title, id }, tasks, s
             setOpenEdit(false)
             setLoadingTask(false)
         } catch (err) {
+            setLoadingTask(false)
             console.log(err.message)
         }
     }
@@ -43,6 +44,7 @@ const Card = ({ element: { completed_at = null, createdAt, title, id }, tasks, s
             await setTasks(refreshArray)
             setLoadingTask(false)
         } catch (err) {
+            setLoadingTask(false)
             console.log(err.message)
         }
     }
@@ -59,7 +61,7 @@ const Card = ({ element: { completed_at = null, createdAt, title, id }, tasks, s
                 </div>
                 <p>
                     {
-                        moment(createdAt).format('DD-MM-YYYY hh:mm:ss')
+                        moment(created_at).format('DD-MM-YYYY hh:mm:ss')
                     }
                 </p>
                 <p>

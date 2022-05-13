@@ -26,13 +26,15 @@ app.get('/', (req, res) => {
 
 
 
-app.use("/api/tasks", tasksRouter);
+const tasks = app.use("/api/tasks", tasksRouter);
 
-app.use(errorHandler)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'))
 })
+
+
+app.use(errorHandler)
 
 
 const PORT = process.env.PORT || 5000;
@@ -43,3 +45,4 @@ process.on('unhandledRejection', (err, _promise) => {
     console.log(`Error message: ${err.message}`)
     server.close(() => process.exit(1))
 })
+module.exports = {tasks}

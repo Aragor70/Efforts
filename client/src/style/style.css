@@ -65,7 +65,18 @@ main section {
     padding: 40px;
     border-radius: 25px;
 }
+.cards-items > .icon {
+    width: 32px;
+    min-height: auto;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+}
+
 form > label {
+    width: 100%;
+}
+form > div {
     width: 100%;
 }
 form input {
@@ -87,6 +98,10 @@ form button {
     width: 32px;
 }
 
+.icon svg {
+    width: 32px;
+    margin: 0 auto;
+}
 
 
 @media (max-width: 768px) {
@@ -95,8 +110,7 @@ form button {
         padding-right: 20px;
     }
     main {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding: 0 20px;
     }
     .vertical-items > * {
         

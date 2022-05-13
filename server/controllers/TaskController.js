@@ -4,6 +4,7 @@ const ErrorResponse = require("../tools/ErrorResponse");
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const moment = require('moment');
 
 /* const TaskService = require("../services/TaskService");
 
@@ -15,11 +16,11 @@ class TaskController {
 
     getTasks = asyncHandler( async(req, res, next) => {
 
-        const { phrase = '', startDate, endDate, status } = req.query;
+        const { phrase = '', startDate = null, endDate = null, status = null } = req.query;
 
-        const createdAtOptions = startDate && endDate ? {
-            createdAt: {
-                [Op.between]: [startDate, endDate]
+        const createdAtOptions = startDate || endDate ? {
+            created_at: {
+                [Op.between]: [ startDate ? moment(startDate).startOf('day') : 0, endDate ? moment(endDate).endOf('day') : moment().endOf('day')]
             }
         } : {}
 
@@ -71,12 +72,11 @@ class TaskController {
 
         const { title } = req.body;
 
-        if (!title.match(this.pattern)) {
+        if (!title || typeof title !== 'string' || !title.match(this.pattern)) {
             return next(new ErrorResponse('Use letters, numbers, spaces, commas (,) dots (.) dashes (-), or underlines (_).', 422)); 
         }
         
         const task = await Task.create({ title });
-
 
         return res.status(201).json({
             message: "Task Created",
