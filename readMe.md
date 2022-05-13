@@ -1,5 +1,6 @@
 ## Efforts web application
 
+
 Meet the Efforts and organize your tasks. The efforts management platform lets you to upload your tasks to the global system and update them.
 
 You can review your tasks in a form of the list. Click on them to mark as completed (you can update the status back). To make your efforts more efficient, we suggest you to filter the cards by status or a date of their creation.
@@ -44,3 +45,8 @@ npm client-tests
 - License MIT
 
 created by mikey.prus@gmail.com
+
+---
+
+
+<p align="center"><img src="client/public/efforts-mobile.png" width="100%" alt="efforts"></p>
