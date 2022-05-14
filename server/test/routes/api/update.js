@@ -60,18 +60,19 @@ describe('Test PUT /api/tasks/:id', () => {
         
     });
     
-    it ('For Fail, Return the same task if req body is empty', (done) => {
+    it ('For Fail, Return the task if req body is empty', (done) => {
 
-        request(tasksRouter.tasks).put('/api/tasks/2')
+        request(tasksRouter.tasks).put('/api/tasks/' + 2)
             .send({ })
             .then((response) => {
                 
-                expect(response.statusCode).to.be.within(200, 404);
+                expect(response.statusCode).to.equal(200);
 
                 const body = response.body;
 
                 expect(body).to.contain.property('success');
                 expect(body).to.contain.property('message');
+                expect(body).to.contain.property('task');
 
                 
                 done()
@@ -84,22 +85,21 @@ describe('Test PUT /api/tasks/:id', () => {
     it ('For Success, Update title.', (done) => {
 
 
-        request(tasksRouter.tasks).put('/api/tasks/2')
+        request(tasksRouter.tasks).put('/api/tasks/' + 2)
             .send({ title: "Update the task." })
             .then((response) => {
 
-                expect(response.statusCode).to.be.within(200, 404);
+                expect(response.statusCode).to.equal(200);
                 
                 const body = response.body;
 
                 expect(body).to.contain.property('success');
                 expect(body).to.contain.property('message');
 
-                if (response.statusCode === 200) {
-                    expect(body).to.contain.property('task')
-                    expect(body.message).to.equal("Task was updated.")
-                    expect(body.task.title).to.equal("Update the task.")
-                }
+                expect(body).to.contain.property('task')
+                expect(body.message).to.equal("Task was updated.")
+                expect(body.task.title).to.equal("Update the task.")
+                
                 
                 done()
                 
@@ -107,24 +107,23 @@ describe('Test PUT /api/tasks/:id', () => {
         
     });
 
-    it ('For Success, Update status to completed or return status 404.', (done) => {
+    it ('For Success, Update status to completed.', (done) => {
 
 
-        request(tasksRouter.tasks).put('/api/tasks/2')
+        request(tasksRouter.tasks).put('/api/tasks/' + 2)
             .send({ isCompleted: true })
             .then((response) => {
 
-                expect(response.statusCode).to.be.within(200, 404);
+                expect(response.statusCode).to.equal(200);
                 
                 const body = response.body
 
                 expect(body).to.contain.property('success')
                 expect(body).to.contain.property('message')
 
-                if (response.statusCode === 200) {
-                    expect(body).to.contain.property('task')
-                    expect(body.message).to.equal("Task was updated.")
-                }
+                expect(body).to.contain.property('task')
+                expect(body.message).to.equal("Task was updated.")
+                expect(body.success).to.equal(true)
 
                 
                 done()

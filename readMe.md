@@ -24,19 +24,37 @@ In a way to initialize the PostgreSQL on your computer set up your access passwo
 
 .* (Include only your db password, if you are using a default local configuration).
 
+3. Access db command line (optional)
+
+```
+psql postgres postgres
+```
 
 ## Install dependencies
 
+
 ```
-# Run this command in the base and client directory.
+# Run to change directory to client
+
+cd client
+```
+
+```
+# Run this command in both server and client directories.
 
 npm install
 ```
 
 ```
+# Run this command in ./client to build the client project.
+
+npm run build
+```
+
+```
 # Run to change directory to server
 
-cd server
+cd ../server
 ```
 
 ```
@@ -71,6 +89,10 @@ Run Client tests
 ```
 npm client-tests
 ```
+
+## Installation Missing?
+
+If some scenario is not covered, please let me know by email.
 
 - Version prequire 1.0.0
 - License MIT

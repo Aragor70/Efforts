@@ -30,7 +30,6 @@ describe('Test DELETE /api/tasks/:id', () => {
 
                     expect(response.statusCode).to.be.within(200, 404);
 
-
                     const body = response.body
 
                     expect(body).to.contain.property('success')
