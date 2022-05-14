@@ -7,13 +7,9 @@ const express = require('express');
 const errorHandler = require('./middlewares/error');
 const tasksRouter = require('./routes/api/tasks');
 
-// uncomment to allow access from outside like we do from https://efforts.m-prus.uk/
-/* const cors = require('cors'); */
 
 const app = express();
 
-// uncomment to allow access from outside like we do from https://efforts.m-prus.uk/
-/* app.use(cors()); */
 
 require('./config/db');
 

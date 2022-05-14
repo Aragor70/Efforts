@@ -92,10 +92,6 @@ Run Client tests
 npm client-tests
 ```
 
-Run both Client and Server tests
-```
-npm run test-all
-```
 
 ## Installation Missing?
 
