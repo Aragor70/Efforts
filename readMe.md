@@ -17,8 +17,8 @@ You can review your tasks in a form of the list. Click on them to mark as comple
 
 ## Usage
 
-1. Application is connected to PostgreSQL database. To download PotgreSQL https://www.postgresql.org/download/
-In a way to initialize the PostgreSQL on your computer set up your access password during the installation and keep a default the other options.
+1. Application is connected to PostgreSQL database. Find the latest version of PotgreSQL from the official website https://www.postgresql.org/download/
+To initialize the PostgreSQL on your computer set up your access password during the installation and keep a default the other options.
 
 2. Rename "config/config.env.env" to "config/config.env" and update environment settings to your own *. 
 
