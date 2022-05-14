@@ -6,7 +6,7 @@ const taskController = new TaskController;
 
 
 //route GET    api/tasks/
-//description  Get the tasks
+//description  Get the tasks with a filtering
 router.get('/', taskController.getTasks);
 
 //route GET    api/tasks/:id

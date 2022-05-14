@@ -1,3 +1,8 @@
+
+
+
+
+
 const Sequelize = require('sequelize');
 const { dbSequelise } = require('../config/db');
 
@@ -10,12 +15,13 @@ const Task = dbSequelise.define('task', {
     defaultValue: null
   }
 }, {
-  updatedAt: 'updated_at',
+  updatedAt: false,
   createdAt: 'created_at',
 });
 
-Task.sync().then(() => {
+/* Task.sync().then(() => {
   console.log('Tasks table created');
-});
+}); */
 
 module.exports = Task;
+

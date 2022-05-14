@@ -6,13 +6,10 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const moment = require('moment');
 
-/* const TaskService = require("../services/TaskService");
-
-const taskService = new TaskService() */
 
 class TaskController {
 
-    pattern = /^[0-9a-zA-Z \-_.,]+$/
+    titlePattern = /^[0-9a-zA-Z \-_.,]+$/
 
     getTasks = asyncHandler( async(req, res, next) => {
 
@@ -45,6 +42,7 @@ class TaskController {
             ],
         })
 
+
         return res.json({
             success: true,
             tasks,
@@ -72,7 +70,7 @@ class TaskController {
 
         const { title } = req.body;
 
-        if (!title || typeof title !== 'string' || !title.match(this.pattern)) {
+        if (!title || typeof title !== 'string' || !title.match(this.titlePattern)) {
             return next(new ErrorResponse('Use letters, numbers, spaces, commas (,) dots (.) dashes (-), or underlines (_).', 422)); 
         }
         
@@ -97,7 +95,7 @@ class TaskController {
             return next(new ErrorResponse('Task does not exist.', 404)); 
         }
 
-        if (title && !title.match(this.pattern)) {
+        if (title && !title.match(this.titlePattern)) {
             return next(new ErrorResponse('Use letters, numbers, spaces, commas (,), dots (.), dashes (-), or underlines (_).', 422)); 
         }
 

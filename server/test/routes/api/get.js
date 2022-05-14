@@ -6,7 +6,7 @@ const tasksRouter = require('../../../server')
 describe('Test GET /api/tasks', () => {
     
     before((done) => {
-        const titles = ["title1", "title2", "title3", ]
+        const titles = ["title1", "title2", "title3", "title4", "title5", ]
 
         for (let i = 0; i < titles.length; i++) {
             request(tasksRouter.tasks).post('/api/tasks/')
@@ -57,26 +57,47 @@ describe('Test GET /api/tasks', () => {
                 
                 expect(body.tasks).to.be.an('array').to.have.lengthOf.above(0);
 
-                expect(body.tasks[0]).to.own.include({completed_at: null});
+                if (body.tasks.length) {
+                    expect(body.tasks[0]).to.own.include({completed_at: null});
+                }
 
                 done();
             
             }).catch((err) => done(err));
     });
 
-    it ('For Success, Get the homepage.', (done) => {
+    it ('For Success, Get a filtred array of tasks if completed.', (done) => {
+
+        request(tasksRouter.tasks).get('/api/tasks?status=completed')
+            .then((response) => {
+            
+                expect(response.statusCode).to.equal(200);
+                
+                const body = response.body;
+                
+                expect(body).to.contain.property('success');
+                expect(body).to.contain.property('tasks');
+                
+                expect(body.tasks).to.be.an('array').to.have.lengthOf.above(0);
+
+
+                done();
+            
+            }).catch((err) => done(err));
+    });
+
+    it ('For Success, Get available Efforts homepage, get the head title name.', (done) => {
 
         request(tasksRouter.tasks).get('/')
             .then((response) => {
             
-                expect(response.statusCode).to.equal(200)
+                expect(response.statusCode).to.equal(200);
                 
-                const body = response.body
+                const body = response.body;
                 
                 expect(body).to.not.contain.property('success');
 
-                expect(response.text).to.match(/Efforts/)
-
+                expect(response.text).to.match(/Efforts/);
                 
                 done();
             

@@ -1,13 +1,17 @@
 const expect = require('chai').expect;
 const request = require('supertest');
-const tasksRouter = require('../../../server')
+const tasksRouter = require('../../../server');
 
 
 
 
 describe('Test POST /api/tasks/', () => {
+    
+    
+    this.tasks = [{title: "title1", id: 1}, {title: "title2", id: 2}, {title: "title3", id: 3}, ];
 
     
+
     it ('For Fail, Return err msg when req title contains wrong characters.', (done) => {
 
 
@@ -61,8 +65,7 @@ describe('Test POST /api/tasks/', () => {
         request(tasksRouter.tasks).post('/api/tasks')
             .send({ title: "Create a new task with letters, dots, and commas." })
             .then((response) => {
-                
-                
+                               
                 expect(response.statusCode).to.equal(201)
                 
                 const body = response.body
