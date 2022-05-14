@@ -4,6 +4,10 @@ Meet the Efforts and organize your tasks. The efforts management platform lets y
 
 You can review your tasks in a form of the list. Click on them to mark as completed (you can update the status back). To make your efforts more efficient, we suggest you to filter the cards by status or a date of their creation.
 
+## Demo
+
+https://efforts.m-prus.uk/
+
 
 ## Technical Specification
 
@@ -76,12 +80,12 @@ npx sequelize-cli db:seed:all
 ```
 
 
-Run App in development environment
+## Run App in development environment
 ```
 npm run dev
 ```
 
-Run API tests
+## Run unit tests
 
 Run Server-side tests
 ```
@@ -91,6 +95,55 @@ Run Client tests
 ```
 npm client-tests
 ```
+
+
+## Available access points: 
+
+| open react app |
+| :---: |
+
+GET '/'
+
+
+| get all available tasks + filtering (optional) |
+| :---: |
+
+GET api/tasks/
+
+GET api/tasks?phrase=""
+
+*letters are not case sensitive
+
+GET api/tasks?status=""
+
+*available 'completed' and 'pending'
+
+GET api/tasks?startDate=""
+
+GET api/tasks?endtDate=""
+
+| create a new task |
+| :---: |
+
+POST api/tasks/ 
+
+*JSON body = title is required
+
+Use letters, numbers, spaces, commas (,), dots (.), dashes (-), or underlines (_).
+
+| update available task by id to update its title or status |
+| :---: |
+
+PUT api/tasks/:id 
+
+*JSON body = title or isCompleted = true
+
+Use letters, numbers, spaces, commas (,), dots (.), dashes (-), or underlines (_).
+
+| delete available task by id |
+| :---: |
+
+DELETE api/tasks/:id
 
 
 ## Installation Missing?
