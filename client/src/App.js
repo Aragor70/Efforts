@@ -37,9 +37,13 @@ const App = () => {
     }
   }
 
+
   useEffect(() => {
 
-    getTasks()
+    const defaultOption = { status: 'completed' }
+
+    setFilterData(defaultOption)
+    getTasks(defaultOption)
 
     return () => {
       setTasks([]);
@@ -124,7 +128,7 @@ const App = () => {
           
 
           {
-            loadingTasks ? <div>loading...</div> : tasks.length ? tasks.map((element) => <Card key={element.id} element={element} tasks={tasks} setTasks={setTasks} />) : <div>No tasks.</div>
+            loadingTasks ? <div>loading...</div> : tasks.length ? tasks.map((element) => <Card key={element.id} element={element} tasks={tasks} setTasks={setTasks} />) : filterData?.status ? <div>{"No " + (filterData?.status || "N/A") + " tasks."}</div> : <div>No tasks.</div>
           }
         </section>
       </main>
