@@ -44,7 +44,7 @@ const App = () => {
 
   useEffect(() => {
 
-    const defaultOption = { status: 'completed', startDate: new Date }
+    const defaultOption = { startDate: new Date }
 
     setFilterData(defaultOption)
     getTasks(defaultOption)
@@ -144,7 +144,7 @@ const App = () => {
           {
             loadingTasks ? <div>loading...</div> : tasks.length ? tasks.map((element) => <Card key={element.id} element={element} tasks={tasks} setTasks={setTasks} />) : submittedFilterData ? 
             
-            <div>{ (submittedFilterData?.status ? "No " + (submittedFilterData?.status || "N/A") : "") + " tasks" + (submittedFilterData?.startDate ? " from " + (moment(submittedFilterData?.startDate)?.format('DD-MM-YYYY') || "N/A") : "") + (submittedFilterData?.endDate ? " till " + (moment(submittedFilterData?.endDate)?.format('DD-MM-YYYY') || "N/A") : "") }</div> 
+            <div>{ (submittedFilterData?.status ? "No " + (submittedFilterData?.status || "N/A") : "No") + " tasks" + (submittedFilterData?.startDate ? " from " + (moment(submittedFilterData?.startDate)?.format('DD-MM-YYYY') || "N/A") : "") + (submittedFilterData?.endDate ? " till " + (moment(submittedFilterData?.endDate)?.format('DD-MM-YYYY') || "N/A") : "") }</div> 
             
             : <div>No tasks.</div>
           }
