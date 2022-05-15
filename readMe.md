@@ -93,7 +93,7 @@ npm test
 ```
 Run Client tests
 ```
-npm client-tests
+npm run client-tests
 ```
 
 
