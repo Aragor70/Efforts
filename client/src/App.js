@@ -6,6 +6,7 @@ import Card from './components/Card';
 import { ReactComponent as EffortsSvg} from './style/images/efforts-logo.svg'
 import { ReactComponent as FilterSvg} from './style/images/filter-outline.svg'
 import { ReactComponent as CloseSvg} from './style/images/close-outline.svg'
+import moment from 'moment';
 
 const App = () => {
   
@@ -15,6 +16,7 @@ const App = () => {
     title: ''
   })
   const [filterData, setFilterData] = useState(null)
+  const [submittedFilterData, setSubmittedFilterData] = useState(null)
   const [openFilter, setOpenFilter] = useState(false);
 
   
@@ -25,6 +27,8 @@ const App = () => {
       setLoadingTasks(true)
       
       const res = await getAll(payload);
+
+      setSubmittedFilterData(payload)
   
       setTasks(res.tasks)
   
@@ -40,7 +44,7 @@ const App = () => {
 
   useEffect(() => {
 
-    const defaultOption = { status: 'completed' }
+    const defaultOption = { status: 'completed', startDate: new Date }
 
     setFilterData(defaultOption)
     getTasks(defaultOption)
@@ -66,6 +70,7 @@ const App = () => {
   }
 
   console.log(filterData)
+  console.log(submittedFilterData)
 
   return (
     <Fragment>
@@ -96,6 +101,15 @@ const App = () => {
           {
             openFilter ? 
               <form className="vertical-items">
+              {
+                filterData && <Fragment>
+                  <p>
+                    STATUS: {filterData?.status || "all"} {" "}
+                    From: {filterData?.startDate ? moment(filterData?.startDate)?.format('DD-MM-YYYY') : "all"} {" "}
+                    To: {filterData?.endDate ? moment(filterData?.endDate)?.format('DD-MM-YYYY') : "all"}
+                  </p>
+                </Fragment>
+              }
               <div>
                 <span onClick={() => setOpenFilter(false)} className='icon'>
                 <CloseSvg />
@@ -128,7 +142,11 @@ const App = () => {
           
 
           {
-            loadingTasks ? <div>loading...</div> : tasks.length ? tasks.map((element) => <Card key={element.id} element={element} tasks={tasks} setTasks={setTasks} />) : filterData?.status ? <div>{"No " + (filterData?.status || "N/A") + " tasks."}</div> : <div>No tasks.</div>
+            loadingTasks ? <div>loading...</div> : tasks.length ? tasks.map((element) => <Card key={element.id} element={element} tasks={tasks} setTasks={setTasks} />) : submittedFilterData ? 
+            
+            <div>{ (submittedFilterData?.status ? "No " + (submittedFilterData?.status || "N/A") : "") + " tasks" + (submittedFilterData?.startDate ? " from " + (moment(submittedFilterData?.startDate)?.format('DD-MM-YYYY') || "N/A") : "") + (submittedFilterData?.endDate ? " till " + (moment(submittedFilterData?.endDate)?.format('DD-MM-YYYY') || "N/A") : "") }</div> 
+            
+            : <div>No tasks.</div>
           }
         </section>
       </main>
