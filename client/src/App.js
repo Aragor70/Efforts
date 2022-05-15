@@ -139,7 +139,9 @@ const App = () => {
                 <FilterSvg />
               </span>
           }
-          
+          {
+            (tasks?.length || 0) + (tasks?.length === 1 ? " task" : " tasks") + (submittedFilterData?.startDate ? " from " + (moment(submittedFilterData?.startDate)?.format('DD-MM-YYYY') || "N/A") : "") + (submittedFilterData?.endDate ? " till " + (moment(submittedFilterData?.endDate)?.format('DD-MM-YYYY') || "N/A") : "")
+          }
 
           {
             loadingTasks ? <div>loading...</div> : tasks.length ? tasks.map((element) => <Card key={element.id} element={element} tasks={tasks} setTasks={setTasks} />) : submittedFilterData ? 
