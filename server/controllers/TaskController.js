@@ -13,34 +13,42 @@ class TaskController {
 
     getTasks = asyncHandler( async(req, res, next) => {
 
-        const { phrase = '', startDate = null, endDate = null, status = null } = req.query;
+        const { phrase = null, startDate = null, endDate = null, status = null } = req.query;
+        
+        if (phrase && (typeof phrase !== 'string' || !phrase.match(this.titlePattern))) {
+            return next(new ErrorResponse('Use letters, numbers, spaces, commas (,) dots (.) dashes (-), or underlines (_).', 422)); 
+        }
 
-        const createdAtOptions = startDate || endDate ? {
+        const createdAtOptions = await startDate || endDate ? {
             created_at: {
                 [Op.between]: [ startDate ? moment(startDate).startOf('day') : 0, endDate ? moment(endDate).endOf('day') : moment().endOf('day')]
             }
         } : {}
-
-        const completedAtOptions = status === 'pending' ? {
+        const completedAtOptions = await status === 'pending' ? {
             completed_at: null
         } : status === 'completed' ? {
             completed_at: {
                 [Op.not]: null
             }
         } : {}
-
-        const tasks = await Task.findAll({
+        const phraseOptions = await phrase ? {
+            title: {
+                [Op.iLike]: `%${phrase}%`
+            },
+        } : {}
+        
+        const options = {
             where: {
-                title: {
-                    [Op.iLike]: `%${phrase}%`
-                },
+                ...phraseOptions,
                 ...createdAtOptions,
                 ...completedAtOptions
             },
             order: [
                 ['id', 'DESC']
             ],
-        })
+        }
+
+        const tasks = await Task.findAll(options)
 
 
         return res.json({
