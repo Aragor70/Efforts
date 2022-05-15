@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 
 import App from '../App';
 
@@ -10,9 +10,10 @@ describe("Test App component", () => {
         
         const div = document.createElement('div');
 
-        ReactDOM.hydrateRoot(
-            div,
-            <App />);
+        ReactDOM.hydrate(
+            <App />,
+            div
+        );
     });
     
 });

@@ -1,16 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import App from './App.js';
 import reportWebVitals from './reportWebVitals';
 
 import './style/style.css';
 
 
-ReactDOM.hydrateRoot(
-  document.getElementById('root'), 
+ReactDOM.hydrate(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 reportWebVitals();
